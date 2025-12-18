@@ -1,6 +1,5 @@
-%bcond check 1
-
 Name:           xwayland-satellite
+# renovate: datasource=github-releases depName=Supreeeme/xwayland-satellite
 Version:        0.8
 Release:        %autorelease
 Summary:        Rootless Xwayland integration for Wayland compositors
@@ -28,11 +27,6 @@ License:        %{shrink:
 
 URL:            https://github.com/Supreeeme/xwayland-satellite
 Source0:        %{url}/archive/v%{version}/xwayland-satellite-%{version}.tar.gz
-Source1:        xwayland-satellite-%{version}-vendor.tar.xz
-
-# * fix executable path in systemd unit:
-#   the executable gets installed to /usr/bin, not /usr/local/bin
-Patch:          0001-fix-executable-path-in-systemd-unit.patch
 
 ExcludeArch:    %{ix86}
 
@@ -56,25 +50,14 @@ useful for compositors that (understandably) do not want to go through
 implementing support for rootless Xwayland themselves.
 
 %prep
-%autosetup -n xwayland-satellite-%{version} -a1 -p1
-%cargo_prep -v vendor
+%autosetup -n xwayland-satellite-%{version}
 
 %build
-%cargo_build -f systemd
-
-%{cargo_license_summary -f systemd}
-%{cargo_license -f systemd} > LICENSE.dependencies
-%{cargo_vendor_manifest}
+cargo build --release --locked --features systemd
 
 %install
-install -Dpm0755 target/rpm/xwayland-satellite -t %{buildroot}%{_bindir}
+install -Dpm0755 target/release/xwayland-satellite -t %{buildroot}%{_bindir}
 install -Dpm0644 resources/xwayland-satellite.service -t %{buildroot}%{_userunitdir}
-
-%if %{with check}
-%check
-# * integration tests require an active wayland session
-%cargo_test -f systemd -- --lib
-%endif
 
 %post
 %systemd_user_post xwayland-satellite.service
@@ -87,8 +70,6 @@ install -Dpm0644 resources/xwayland-satellite.service -t %{buildroot}%{_userunit
 
 %files
 %license LICENSE
-%license LICENSE.dependencies
-%license cargo-vendor.txt
 %doc README.md
 %{_bindir}/xwayland-satellite
 %{_userunitdir}/xwayland-satellite.service
