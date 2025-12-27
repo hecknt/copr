@@ -14,22 +14,23 @@ Source0:            %{url}/archive/%{commit}/valent-%{commit}.tar.gz
 Source1:            https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/master/libgnome-volume-control-master.tar.gz
 
 Provides:       bundled(gvc)
-BuildRequires:  meson
+BuildRequires:  desktop-file-utils
+BuildRequires:  evolution-data-server-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libphonenumber-devel
-BuildRequires:  evolution-data-server-devel
-BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(gstreamer-1.0)
-BuildRequires:  pkgconfig(libpipewire-0.3)
-BuildRequires:  pkgconfig(gnutls)
-BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(libpeas-2)
-BuildRequires:  pkgconfig(tracker-sparql-3.0)
+BuildRequires:  meson
 BuildRequires:  pkgconfig(glycin-2)
 BuildRequires:  pkgconfig(glycin-gtk4-2)
+BuildRequires:  pkgconfig(gnutls)
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libpeas-2)
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libportal-gtk4)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(tracker-sparql-3.0)
 
 %description
 Connect, control and sync devices
@@ -37,19 +38,19 @@ Connect, control and sync devices
 %package devel
 Summary: Development files for building against %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires:  libphonenumber-devel
 Requires:  evolution-data-server-devel
-Requires:  pkgconfig(libadwaita-1)
-Requires:  pkgconfig(libpulse)
-Requires:  pkgconfig(gstreamer-1.0)
-Requires:  pkgconfig(libpipewire-0.3)
-Requires:  pkgconfig(gnutls)
-Requires:  pkgconfig(json-glib-1.0)
-Requires:  pkgconfig(libpeas-2)
-Requires:  pkgconfig(tracker-sparql-3.0)
+Requires:  libphonenumber-devel
 Requires:  pkgconfig(glycin-2)
 Requires:  pkgconfig(glycin-gtk4-2)
+Requires:  pkgconfig(gnutls)
+Requires:  pkgconfig(gstreamer-1.0)
+Requires:  pkgconfig(json-glib-1.0)
+Requires:  pkgconfig(libadwaita-1)
+Requires:  pkgconfig(libpeas-2)
+Requires:  pkgconfig(libpipewire-0.3)
 Requires:  pkgconfig(libportal-gtk4)
+Requires:  pkgconfig(libpulse)
+Requires:  pkgconfig(tracker-sparql-3.0)
 
 %description devel
 Development files needed for building things which link against %{name}.
