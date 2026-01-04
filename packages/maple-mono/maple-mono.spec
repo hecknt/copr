@@ -9,6 +9,7 @@
 %global fontsummary1 Open source monospace font with round corner, ligatures and Nerd-Font icons for IDE and terminal, fine-grained customization options.
 %global fonts1 maplemono-nf/*.ttf
 
+# renovate: datasource=github-releases depName=subframe7536/maple-font versioning=loose
 Version: 7.9
 Release: 0%{?dist}
 
